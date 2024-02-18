@@ -4,22 +4,23 @@ import { useCallback } from 'react'
 
 type RectangleProps = {
   lineWidth: number
-  color: ColorSource
-  backgroundColor?: ColorSource
+  lineColor: ColorSource
+  color?: ColorSource
   width: number
   height: number
+  position: number[]
 }
 
 export const Rectangle = (props: RectangleProps) => {
-  const { lineWidth, color, backgroundColor, width, height } = props
+  const { lineWidth, lineColor, color, width, height, position } = props
   const draw = useCallback(
     (g: Graphics) => {
       g.clear()
-      if (backgroundColor !== undefined) {
-        g.beginFill(backgroundColor)
+      if (color !== undefined) {
+        g.beginFill(color)
       }
-      g.lineStyle(lineWidth, color)
-      g.drawRect((width / 2) * -1, (height / 2) * -1, width, height)
+      g.lineStyle(lineWidth, lineColor)
+      g.drawRect(position[0], position[1], width, height)
     },
     [props],
   )
